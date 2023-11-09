@@ -1,13 +1,14 @@
-import {useState} from "react";
+import {ChangeEvent, useState} from "react";
 import './App.css'
 
 const App = () => {
     const [currentIndex, setCurrentIndex] = useState<number>(0)
-    const [elements, setElements] = useState<number[]>(Array.from(Array(200).keys()))
+    const [length, setLength] = useState<number>(100)
+    const [speed, setSpeed] = useState<number>(1)
+    const [elements, setElements] = useState<number[]>([])
 
-    const sortElements = (): number[] => {
-        const array = [...elements]
-
+    const shuffle = () => {
+        const array = Array.from(Array(length).keys())
 
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -15,14 +16,14 @@ const App = () => {
             array[i] = array[j];
             array[j] = temp;
         }
+
         setElements(array)
-        return array
     }
 
     const timer = (ms: number) => new Promise(res => setTimeout(res, ms));
 
     const bubbleSort = async () => {
-        const array = sortElements()
+        const array = [...elements]
         let swapped
 
         for (let i = 0; i < array.length - 1; i++)
@@ -39,7 +40,7 @@ const App = () => {
                     swapped = true;
                     setElements(array)
                 }
-                await timer(1)
+                await timer(speed)
             }
 
             if (swapped == false)
@@ -50,15 +51,38 @@ const App = () => {
     }
 
     return (
-        <div className="container">
-            <button onClick={bubbleSort} className='start-btn'>Start</button>
-            {elements.map((el, index) =>
-                <div
-                    className={currentIndex === index ? 'el active' : 'el'}
-                    style={{height: el * 2 + 2}}
-                />
-            )}
+        <div className="fullscreen-container">
+            <div className="toolbar-container">
+                <div className="input-box">
+                    <label>Number of elements</label>
+                    <input
+                        type="number"
+                        value={length}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setLength(Number(e.target.value))}
+                    />
+                </div>
+                <div className="input-box">
+                    <label>Speed (ms)</label>
+                    <input
+                        type="number"
+                        value={speed}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setSpeed(Number(e.target.value))}
+                    />
+                </div>
+                <button onClick={shuffle} className='btn'>Shuffle</button>
+                <button onClick={bubbleSort} className='btn'>Start</button>
+            </div>
+            <div className="elements-container">
+
+                {elements.map((el, index) =>
+                    <div
+                        className={currentIndex === index ? 'el active' : 'el'}
+                        style={{height: el * 2 + 2}}
+                    />
+                )}
+            </div>
         </div>
+
     );
 };
 

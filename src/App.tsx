@@ -1,54 +1,14 @@
 import {ChangeEvent, useState} from "react";
 import './App.css'
+import {useShuffle} from "./hooks/useShuffle.ts";
+import {useBubbleSort} from "./hooks/useBubbleSort.ts";
 
 const App = () => {
-    const [currentIndex, setCurrentIndex] = useState<number>(0)
-    const [length, setLength] = useState<number>(100)
     const [speed, setSpeed] = useState<number>(1)
-    const [elements, setElements] = useState<number[]>([])
+    const [length, setLength] = useState<number>(100)
 
-    const shuffle = () => {
-        const array = Array.from(Array(length).keys())
-
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            const temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-
-        setElements(array)
-    }
-
-    const timer = (ms: number) => new Promise(res => setTimeout(res, ms));
-
-    const bubbleSort = async () => {
-        const array = [...elements]
-        let swapped
-
-        for (let i = 0; i < array.length - 1; i++)
-        {
-            swapped = false;
-            for (let j = 0; j < array.length - i - 1; j++)
-            {
-                setCurrentIndex(j)
-                if (array[j] > array[j + 1])
-                {
-                    const temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
-                    swapped = true;
-                    setElements(array)
-                }
-                await timer(speed)
-            }
-
-            if (swapped == false)
-                break;
-        }
-        setElements(array)
-
-    }
+    const {shuffle, elements, setElements} = useShuffle(length)
+    const {currentIndex, bubbleSort} = useBubbleSort(speed, elements, setElements)
 
     return (
         <div className="fullscreen-container">

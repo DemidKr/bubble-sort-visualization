@@ -1,5 +1,5 @@
 import {ChangeEvent, useState} from "react";
-import './App.css'
+import "./App.css"
 import {useShuffle} from "./hooks/useShuffle.ts";
 import {useBubbleSort} from "./hooks/useBubbleSort.ts";
 
@@ -9,7 +9,6 @@ const App = () => {
 
     const {shuffle, elements, setElements} = useShuffle(length)
     const {currentIndex, bubbleSort} = useBubbleSort(speed, elements, setElements)
-    console.log(1)
 
     return (
         <div className="fullscreen-container">
@@ -30,16 +29,17 @@ const App = () => {
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setSpeed(Number(e.target.value))}
                     />
                 </div>
-                <button onClick={shuffle} className='btn'>Shuffle</button>
-                <button onClick={bubbleSort} className='btn'>Start</button>
+                <button className='btn' onClick={shuffle}>Shuffle</button>
+                <button className='btn' onClick={bubbleSort}>Start</button>
             </div>
             <div className="elements-container">
-                {elements.map((el, index) =>
+                {elements.map((el, index) => (
                     <div
                         key={el}
-                        className={currentIndex === index ? 'el active' : 'el'}
+                        className={currentIndex === index ? "el active" : "el"}
                         style={{height: el * 2 + 2}}
                     />
+                )
                 )}
             </div>
         </div>

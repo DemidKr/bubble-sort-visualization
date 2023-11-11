@@ -9,6 +9,7 @@ const App = () => {
 
     const {shuffle, elements, setElements} = useShuffle(length)
     const {currentIndex, bubbleSort} = useBubbleSort(speed, elements, setElements)
+    console.log(1)
 
     return (
         <div className="fullscreen-container">
@@ -33,9 +34,9 @@ const App = () => {
                 <button onClick={bubbleSort} className='btn'>Start</button>
             </div>
             <div className="elements-container">
-
                 {elements.map((el, index) =>
                     <div
+                        key={el}
                         className={currentIndex === index ? 'el active' : 'el'}
                         style={{height: el * 2 + 2}}
                     />

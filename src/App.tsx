@@ -1,14 +1,13 @@
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent} from "react";
 import "./App.css"
-import {useShuffle} from "./hooks/useShuffle.ts";
-import {useBubbleSort} from "./hooks/useBubbleSort.ts";
+import {useAppDispatch, useAppSelector} from "./shared/hooks/reduxHooks.ts";
+import {setLength, setSpeed, shuffle} from "./store/reducers/elementsSlice.ts";
+import {useBubbleSort} from "./shared/hooks/useBubbleSort.ts";
 
 const App = () => {
-    const [speed, setSpeed] = useState<number>(1)
-    const [length, setLength] = useState<number>(100)
-
-    const {shuffle, elements, setElements} = useShuffle(length)
-    const {currentIndex, bubbleSort} = useBubbleSort(speed, elements, setElements)
+    const dispatch = useAppDispatch()
+    const {bubbleSort} = useBubbleSort()
+    const {length, elements, currentIndex, speed} = useAppSelector((state) => state.elements)
 
     return (
         <div className="fullscreen-container">
@@ -18,7 +17,7 @@ const App = () => {
                     <input
                         type="number"
                         value={length}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => setLength(Number(e.target.value))}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(setLength(Number(e.target.value)))}
                     />
                 </div>
                 <div className="input-box">
@@ -26,10 +25,10 @@ const App = () => {
                     <input
                         type="number"
                         value={speed}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => setSpeed(Number(e.target.value))}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(setSpeed(Number(e.target.value)))}
                     />
                 </div>
-                <button className='btn' onClick={shuffle}>Shuffle</button>
+                <button className='btn' onClick={() => dispatch(shuffle())}>Shuffle</button>
                 <button className='btn' onClick={bubbleSort}>Start</button>
             </div>
             <div className="elements-container">
@@ -39,8 +38,7 @@ const App = () => {
                         className={currentIndex === index ? "el active" : "el"}
                         style={{height: el * 2 + 2}}
                     />
-                )
-                )}
+                ))}
             </div>
         </div>
 

@@ -26,6 +26,7 @@ module.exports = {
     'react/jsx-indent-props': [2, 4],
     'indent': [2, 4],
     "no-console": "warn",
+    'no-unused-vars': "warn",
     '@typescript-eslint/no-unused-vars': 'warn',
     // 'max-len': ["error", { code: 100, ignoreUrls: true }],
     'quotes': [1, 'double'],
@@ -58,6 +59,6 @@ module.exports = {
     "react/no-access-state-in-setstate": 2,
     "react/no-multi-comp": 2,
     "react/no-unused-prop-types": 1,
-    "react/no-unused-state": 1
+    "react/no-unused-state": 1,
     },
 }

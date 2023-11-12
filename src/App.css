@@ -40,8 +40,15 @@ button {
   height: 40px;
   background-color: green;
   color: white;
-  border: solid white 1px;
+  border: 0;
   border-radius: 4px;
+  font-size: 16px;
+  transition: .2s ease-in-out 0s;
+}
+
+button:hover {
+  background-color: green;
+  transform: scale(1.25);
 }
 
 .input-box {
@@ -57,5 +64,5 @@ button {
 
 input {
   height: 20px;
-  width: 130px;
+  width: 160px;
 }

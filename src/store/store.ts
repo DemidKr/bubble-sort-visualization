@@ -1,14 +1,10 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {elementsSlice} from "./reducers/elementsSlice.ts";
 
-const rootReducer = combineReducers({
-    [elementsSlice.name]: elementsSlice.reducer,
-})
+const rootReducer = combineReducers({[elementsSlice.name]: elementsSlice.reducer,})
 
 export const setupStore = () => {
-    return configureStore({
-        reducer: rootReducer,
-    })
+    return configureStore({reducer: rootReducer,})
 }
 
 export type RootState = ReturnType<typeof rootReducer>

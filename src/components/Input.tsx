@@ -7,7 +7,9 @@ interface InputProps {
 }
 
 const Input = (props: InputProps) => {
-    const {value, label, onChange} = props
+    const {
+        value, label, onChange
+    } = props
 
     return (
         <div className="input-box">

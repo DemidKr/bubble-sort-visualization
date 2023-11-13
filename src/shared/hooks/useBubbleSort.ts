@@ -4,7 +4,9 @@ import {setCurrentIndex, setElements, setIsSorting} from "../../store/reducers/e
 
 export function useBubbleSort() {
     const dispatch = useAppDispatch()
-    const {elements, isSorting, speed} = useAppSelector((state) => state.elements)
+    const {
+        elements, isSorting, speed
+    } = useAppSelector((state) => state.elements)
     const array = JSON.parse(JSON.stringify(elements));
 
     const bubbleSort = async () => {

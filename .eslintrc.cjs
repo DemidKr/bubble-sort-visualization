@@ -60,5 +60,19 @@ module.exports = {
     "react/no-multi-comp": 2,
     "react/no-unused-prop-types": 1,
     "react/no-unused-state": 1,
+    'object-property-newline': 1,
+    "object-curly-newline": [
+      1,
+      {
+        "ObjectExpression": { "multiline": true, "minProperties": 3 },
+        "ObjectPattern": { "multiline": true, "minProperties": 3 },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+      }
+    ],
+    "no-alert": 1,
+    "no-lonely-if": 1,
+    "no-undef-init": 2,
+    "no-var": 1,
     },
 }
